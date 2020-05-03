@@ -1,1 +1,9 @@
-<p>cluster-view works!</p>
+<p>cluster-view for {{clusterId}}</p>
+<mat-selection-list>
+  <mat-list-option *ngFor="let tweet of tweets"
+                   [selected]="tweet.approved"
+                   (click)="approveTweet(tweet)">
+    {{tweet.text}}
+  </mat-list-option>
+</mat-selection-list>
+
