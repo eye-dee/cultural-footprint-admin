@@ -4,18 +4,24 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {ClustersComponent} from './clusters/clusters.component';
 import {MatTableModule} from '@angular/material/table';
+import { AppRoutingModule } from './app-routing.module';
+import { ClusterViewComponent } from './cluster-view/cluster-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ClustersComponent,
+    ClusterViewComponent,
   ],
   imports: [
     BrowserModule,
     MatTableModule,
+    AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule {
 }
