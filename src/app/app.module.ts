@@ -6,7 +6,8 @@ import {ClustersComponent} from './clusters/clusters.component';
 import {MatTableModule} from '@angular/material/table';
 import {AppRoutingModule} from './app-routing.module';
 import {ClusterViewComponent} from './cluster-view/cluster-view.component';
-import {MatList, MatListModule, MatSelectionList} from '@angular/material/list';
+import {MatListModule} from '@angular/material/list';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {MatList, MatListModule, MatSelectionList} from '@angular/material/list';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     MatTableModule,
     MatListModule,
     AppRoutingModule,

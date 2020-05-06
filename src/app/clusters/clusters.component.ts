@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Cluster} from '../models/cluster';
 import {Router} from '@angular/router';
+import {ClusterService} from '../service/cluster.service';
 
 @Component({
   selector: 'app-clusters',
@@ -15,11 +16,14 @@ export class ClustersComponent implements OnInit {
   columnsToDisplay = ['name', 'week'];
 
   constructor(
-    private router: Router
+    private router: Router,
+    private clusterService: ClusterService
   ) {
   }
 
   ngOnInit(): void {
+    this.clusterService.getClusters()
+      .subscribe((res) => this.clusters = res);
   }
 
   viewCluster(cluster: Cluster) {
