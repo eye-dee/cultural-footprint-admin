@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Cluster} from '../models/cluster';
+import {Cluster, ClusterResult} from '../models/cluster';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -13,5 +13,9 @@ export class ClusterService {
 
   getClusters(): Observable<Cluster[]> {
     return this.http.get<Cluster[]>('/api/clusters');
+  }
+
+  getClusterById(id: string): Observable<ClusterResult> {
+    return this.http.get<ClusterResult>(`/api/clusters/${id}`);
   }
 }

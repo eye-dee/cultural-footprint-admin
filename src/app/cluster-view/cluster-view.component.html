@@ -3,7 +3,7 @@
   <mat-list-option *ngFor="let tweet of tweets"
                    [selected]="tweet.approved"
                    (click)="approveTweet(tweet)">
-    {{tweet.text}}
+    {{tweet.data}}
   </mat-list-option>
 </mat-selection-list>
 
