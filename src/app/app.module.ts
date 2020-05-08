@@ -13,11 +13,13 @@ import {
   OktaAuthModule,
 } from '@okta/okta-angular';
 
+import {environment} from '../environments/environment';
+
 const oktaConfig = {
   issuer: 'https://dev-423382.okta.com/oauth2/ausba82thv9r7TZ4d4x6',
   clientId: '0oabajk7roBAJHm4k4x6',
-  redirectUri: 'http://localhost:4200/implicit/callback',
-  pkce: false,
+  redirectUri: environment.redirectUri,
+  pkce: environment.pkce,
 };
 
 @NgModule({
