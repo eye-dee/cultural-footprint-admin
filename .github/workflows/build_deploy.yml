@@ -18,22 +18,18 @@ jobs:
     - name: Build app
       run: ng build --prod
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    - name: Create inventory file
+      if: github.ref == 'refs/heads/master'
+      run: echo ${{ secrets.INSTANCE_IP }} > ./deployment/hosts
 
-    steps:
-      - name: Create inventory file
-        run: echo ${{ secrets.INSTANCE_IP }} > ./deployment/hosts
-
-      - name: Execute Ansible Playbook
-        uses: arillso/action.playbook@0.0.2
-        with:
-          playbook: ./deployment/deploy.yaml
-          inventory: ./deployment/hosts
-          private_key: ${{ secrets.SSH_KEY }}
-          user: deployer
-        env:
-          ANSIBLE_HOST_KEY_CHECKING: 'false'
-          ANSIBLE_DEPRECATION_WARNINGS: 'false'
+    - name: Execute Ansible Playbook
+      if: github.ref == 'refs/heads/master'
+      uses: arillso/action.playbook@0.0.2
+      with:
+       playbook: ./deployment/deploy.yaml
+       inventory: ./deployment/hosts
+       private_key: ${{ secrets.SSH_KEY }}
+       user: deployer
+      env:
+        ANSIBLE_HOST_KEY_CHECKING: 'false'
+        ANSIBLE_DEPRECATION_WARNINGS: 'false'
