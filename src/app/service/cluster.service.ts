@@ -1,21 +1,40 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Cluster, ClusterResult} from '../models/cluster';
-import {Observable} from 'rxjs';
+import {from, Observable} from 'rxjs';
+import {OktaAuthService} from '@okta/okta-angular';
+import {flatMap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClusterService {
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private authService: OktaAuthService,
+  ) {
   }
 
   getClusters(): Observable<Cluster[]> {
-    return this.http.get<Cluster[]>('/api/clusters');
+    return from(this.authService.getAccessToken())
+      .pipe(
+        flatMap((accessToken) => this.http.get<Cluster[]>('/api/clusters', {
+          headers: {
+            Authorization: 'Bearer ' + accessToken,
+          }
+        }))
+      );
   }
 
   getClusterById(id: string): Observable<ClusterResult> {
-    return this.http.get<ClusterResult>(`/api/clusters/${id}`);
+    return from(this.authService.getAccessToken())
+      .pipe(
+        flatMap((accessToken) => this.http.get<ClusterResult>(`/api/clusters/${id}`, {
+          headers: {
+            Authorization: 'Bearer ' + accessToken,
+          }
+        }))
+      );
   }
 }
