@@ -2,17 +2,25 @@
   hosts: all
   gather_facts: no
   tasks:
-    - name: Delete Admin UI folder
-      file:
-        path: ~/admin-ui
-        state: absent
 
-    - name: Create Admin UI folder
+    - name: Ensure Admin UI folder
       file:
         path: ~/admin-ui
         state: directory
 
-    - name: Copy Nginx config
+    - name: Find previous deployment
+      find:
+        paths: ~/admin-ui
+        patterns: *
+      register: previous_deployment
+
+    - name: Remove previous deployment
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ previous_deployment.files }}"
+
+    - name: Deploy new files
       copy:
         src: ../dist/cultural-footprint-admin/
         dest: ~/admin-ui
