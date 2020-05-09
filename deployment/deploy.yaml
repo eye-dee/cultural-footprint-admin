@@ -11,7 +11,7 @@
     - name: Find previous deployment
       find:
         paths: ~/admin-ui
-        patterns: *
+        patterns: "*"
       register: previous_deployment
 
     - name: Remove previous deployment
