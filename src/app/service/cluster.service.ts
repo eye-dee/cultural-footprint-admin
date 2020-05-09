@@ -16,12 +16,15 @@ export class ClusterService {
   ) {
   }
 
-  getClusters(): Observable<Cluster[]> {
+  getClusters(week: string): Observable<Cluster[]> {
     return from(this.authService.getAccessToken())
       .pipe(
         flatMap((accessToken) => this.http.get<Cluster[]>('/api/clusters', {
           headers: {
             Authorization: 'Bearer ' + accessToken,
+          },
+          params: {
+            week
           }
         }))
       );
