@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Cluster, ClusterResult} from '../models/cluster';
+import {Cluster, ClusterResult, ClusterStatus} from '../models/cluster';
 import {from, Observable} from 'rxjs';
 import {OktaAuthService} from '@okta/okta-angular';
 import {flatMap} from 'rxjs/operators';
@@ -16,6 +16,14 @@ export class ClusterService {
   ) {
   }
 
+  private static mapStatus(status: ClusterStatus) {
+    if (status === ClusterStatus.APPROVED) {
+      return 'approval';
+    } else {
+      return 'declination';
+    }
+  }
+
   getClusters(week: string): Observable<Cluster[]> {
     return from(this.authService.getAccessToken())
       .pipe(
@@ -27,6 +35,19 @@ export class ClusterService {
             week
           }
         }))
+      );
+  }
+
+  updateClusterStatus(cluster: Cluster): Observable<any> {
+    return from(this.authService.getAccessToken())
+      .pipe(
+        flatMap((accessToken) =>
+          this.http.post(`/api/clusters/${cluster.id}/${ClusterService.mapStatus(cluster.status)}`, {}, {
+            headers: {
+              Authorization: 'Bearer ' + accessToken,
+            }
+          })
+        )
       );
   }
 

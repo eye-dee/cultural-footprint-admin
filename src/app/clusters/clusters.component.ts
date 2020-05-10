@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Cluster} from '../models/cluster';
+import {Cluster, ClusterStatus} from '../models/cluster';
 import {Router} from '@angular/router';
 import {ClusterService} from '../service/cluster.service';
 import {WeekService} from '../service/week.service';
@@ -11,7 +11,8 @@ import {WeekService} from '../service/week.service';
 })
 export class ClustersComponent implements OnInit {
   clusters: Cluster[] = [];
-  columnsToDisplay = ['name', 'week'];
+  columnsToDisplay = ['name', 'week', 'status'];
+  clusterStatuses = Object.keys(ClusterStatus);
   weeks: string[] = [];
   week: string;
 
@@ -24,13 +25,13 @@ export class ClustersComponent implements OnInit {
 
   ngOnInit(): void {
     this.weekService.getWeeks()
-    .subscribe((res) => {
-      this.weeks = res;
-      if (this.weeks.length !== 0) {
-        this.week = this.weeks[0];
-        this.weekSelected();
-      }
-    });
+      .subscribe((res) => {
+        this.weeks = res;
+        if (this.weeks.length !== 0) {
+          this.week = this.weeks[0];
+          this.weekSelected();
+        }
+      });
 
   }
 
@@ -42,5 +43,10 @@ export class ClustersComponent implements OnInit {
   weekSelected() {
     this.clusterService.getClusters(this.week)
       .subscribe((res) => this.clusters = res);
+  }
+
+  changeState(cluster: Cluster) {
+    this.clusterService.updateClusterStatus(cluster)
+      .subscribe((res) => console.log(res));
   }
 }

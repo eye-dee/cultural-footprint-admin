@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ClusterService} from '../service/cluster.service';
 import {RawRecord} from '../models/raw.record';
+import {RawRecordService} from '../service/raw-record.service';
 
 @Component({
   selector: 'app-cluster-view',
@@ -15,7 +16,8 @@ export class ClusterViewComponent implements OnInit {
 
   constructor(
     private router: ActivatedRoute,
-    private clusterService: ClusterService
+    private clusterService: ClusterService,
+    private rawRecordService: RawRecordService,
   ) {
   }
 
@@ -27,6 +29,8 @@ export class ClusterViewComponent implements OnInit {
   }
 
   approveTweet(tweet: RawRecord) {
-    console.log(`approve for tweet ${tweet.id}`);
+    tweet.approved = !tweet.approved;
+    this.rawRecordService.updateApproval(tweet)
+      .subscribe((res) => console.log(res));
   }
 }
