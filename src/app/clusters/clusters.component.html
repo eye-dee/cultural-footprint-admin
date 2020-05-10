@@ -25,6 +25,17 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Cluster Status</th>
+      <td mat-cell class="table-cell" *matCellDef="let cluster">
+        <mat-select [(value)]="cluster.status" (selectionChange)="changeState(cluster)">
+          <mat-option *ngFor="let status of clusterStatuses" [value]="status">
+            {{status}}
+          </mat-option>
+        </mat-select>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
   </table>
