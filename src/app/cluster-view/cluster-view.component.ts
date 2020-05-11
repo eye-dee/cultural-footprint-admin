@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ClusterService} from '../service/cluster.service';
 import {RawRecord} from '../models/raw.record';
@@ -73,8 +73,17 @@ export class ClusterViewComponent implements OnInit {
     switch (value) {
       case 'approved': this.approveCluster(); break;
       case 'declined': this.declineCluster(); break;
-      default: throw Error();
     }
     this._clusterStatus = value;
+  }
+
+  handleNameEnterPress(event: any) {
+    event.stopPropagation();
+    event.preventDefault();
+    const clusterNameToSave = event.target.value;
+    this.clusterService.updateClusterName(this.clusterId, clusterNameToSave)
+    .subscribe(() => {
+      this.cluster.name = clusterNameToSave;
+    });
   }
 }

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Cluster, ClusterResult, ClusterStatus} from '../models/cluster';
-import {from, Observable} from 'rxjs';
+import {from, Observable, of} from 'rxjs';
 import {OktaAuthService} from '@okta/okta-angular';
 import {flatMap} from 'rxjs/operators';
 
@@ -60,5 +60,18 @@ export class ClusterService {
           }
         }))
       );
+  }
+
+  updateClusterName(clusterId: string, clusterName: string): Observable<any> {
+    return from(this.authService.getAccessToken())
+      .pipe(
+      flatMap((accessToken) =>
+        this.http.put(`/api/clusters/${clusterId}/name`, {name: clusterName}, {
+          headers: {
+            Authorization: 'Bearer ' + accessToken,
+          }
+        })
+      )
+    );
   }
 }

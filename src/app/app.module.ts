@@ -19,6 +19,7 @@ import {MatCardModule} from '@angular/material/card';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from "@angular/material/button";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatInputModule} from "@angular/material/input";
 
 const oktaConfig = {
   issuer: 'https://dev-423382.okta.com/oauth2/ausba82thv9r7TZ4d4x6',
@@ -44,7 +45,8 @@ const oktaConfig = {
     MatCardModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatInputModule
   ],
   providers: [
     { provide: OKTA_CONFIG, useValue: oktaConfig }
