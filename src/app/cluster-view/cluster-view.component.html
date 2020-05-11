@@ -1,7 +1,29 @@
-<p>cluster-view for {{clusterId}}</p>
+<mat-card style="align-content: center; align-content: center">
+  <p style="margin: 5px; display: inline">cluster-view for {{clusterId}}</p>
+  <form style="display: inline; width: 15%">
+    <mat-form-field class="example-full-width">
+      <label>
+        <input matInput placeholder="Cluster name" value="{{cluster.name}}"
+               (keydown.enter)="handleNameEnterPress($event)">
+      </label>
+    </mat-form-field>
+  </form>
+
+  <section class="cluster-element">
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [(value)]="clusterStatus">
+      <mat-button-toggle class="{{ isApproved() ? 'approve-button' : '' }}" value="approved">
+        Approved
+      </mat-button-toggle>
+      <mat-button-toggle class="{{ isDeclined() ? 'decline-button' : ''}}" value="declined">
+        Declined
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </section>
+</mat-card>
 <mat-selection-list>
   <mat-list-option *ngFor="let tweet of tweets"
                    [selected]="tweet.approved"
+                   class="{{ tweet.approved ? 'approved-record' : ''}}"
                    (click)="approveTweet(tweet)">
     {{tweet.data}}
   </mat-list-option>
