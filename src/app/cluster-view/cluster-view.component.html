@@ -1,19 +1,17 @@
 <mat-card>
   <p style="margin: 5px; display: inline">cluster-view for {{clusterId}}</p>
   <section class="cluster-element">
-    <button mat-raised-button class="cluster-element approve-button" [disabled]="!isApproved()"
-            (click)="approveCluster()">
-      Approve
-    </button>
-    <button mat-raised-button class="cluster-element decline-button" [disabled]="!isDeclined()"
-            (click)="declineCluster()">
-      Decline
-    </button>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [(value)]="clusterStatus">
+      <mat-button-toggle class="{{ isApproved() ? 'approve-button' : '' }}" value="approved">Approved</mat-button-toggle>
+      <mat-button-toggle class="{{ isDeclined() ? 'decline-button' : ''}}" value="declined">Declined</mat-button-toggle>
+    </mat-button-toggle-group>
+
   </section>
 </mat-card>
 <mat-selection-list>
   <mat-list-option *ngFor="let tweet of tweets"
                    [selected]="tweet.approved"
+                   class="{{ tweet.approved ? 'approved-record' : ''}}"
                    (click)="approveTweet(tweet)">
     {{tweet.data}}
   </mat-list-option>

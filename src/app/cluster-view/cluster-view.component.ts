@@ -15,6 +15,8 @@ export class ClusterViewComponent implements OnInit {
   clusterId: string;
   cluster: Cluster;
   tweets: RawRecord[];
+  // tslint:disable-next-line:variable-name
+  private _clusterStatus: string;
 
   constructor(
       private router: ActivatedRoute,
@@ -61,5 +63,18 @@ export class ClusterViewComponent implements OnInit {
           status: ClusterStatus.DECLINED,
         }
     ).subscribe((res) => this.cluster.status = ClusterStatus.DECLINED);
+  }
+
+  get clusterStatus(): string {
+    return this._clusterStatus;
+  }
+
+  set clusterStatus(value: string) {
+    switch (value) {
+      case 'approved': this.approveCluster(); break;
+      case 'declined': this.declineCluster(); break;
+      default: throw Error();
+    }
+    this._clusterStatus = value;
   }
 }

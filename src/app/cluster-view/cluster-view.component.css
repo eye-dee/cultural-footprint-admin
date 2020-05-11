@@ -10,3 +10,7 @@
 .decline-button {
   background-color: rgba(253, 74, 80, 0.72);
 }
+
+.approved-record {
+  background-color: rgba(80, 255, 129, 0.28);
+}
