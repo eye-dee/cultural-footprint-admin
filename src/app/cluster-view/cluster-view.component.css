@@ -1,0 +1,12 @@
+.cluster-element {
+  margin: 5px;
+  display: inline;
+}
+
+.approve-button {
+  background-color: rgba(80, 255, 129, 0.71);
+}
+
+.decline-button {
+  background-color: rgba(253, 74, 80, 0.72);
+}

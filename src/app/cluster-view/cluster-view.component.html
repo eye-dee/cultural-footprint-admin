@@ -1,4 +1,16 @@
-<p>cluster-view for {{clusterId}}</p>
+<mat-card>
+  <p style="margin: 5px; display: inline">cluster-view for {{clusterId}}</p>
+  <section class="cluster-element">
+    <button mat-raised-button class="cluster-element approve-button" [disabled]="!isApproved()"
+            (click)="approveCluster()">
+      Approve
+    </button>
+    <button mat-raised-button class="cluster-element decline-button" [disabled]="!isDeclined()"
+            (click)="declineCluster()">
+      Decline
+    </button>
+  </section>
+</mat-card>
 <mat-selection-list>
   <mat-list-option *ngFor="let tweet of tweets"
                    [selected]="tweet.approved"

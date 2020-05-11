@@ -17,6 +17,7 @@ import {environment} from '../environments/environment';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule} from "@angular/material/button";
 
 const oktaConfig = {
   issuer: 'https://dev-423382.okta.com/oauth2/ausba82thv9r7TZ4d4x6',
@@ -40,7 +41,8 @@ const oktaConfig = {
     OktaAuthModule,
     MatSelectModule,
     MatCardModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatButtonModule
   ],
   providers: [
     { provide: OKTA_CONFIG, useValue: oktaConfig }
