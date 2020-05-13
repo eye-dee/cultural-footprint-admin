@@ -1,7 +1,7 @@
 <mat-card style="align-content: center; align-content: center">
   <p style="margin: 5px; display: inline">cluster-view for {{clusterId}}</p>
-  <form style="display: inline; width: 15%">
-    <mat-form-field class="example-full-width">
+  <form style="display: inline; width: 50%">
+    <mat-form-field class="example-full-width" style="width: 30%">
       <label>
         <input matInput placeholder="Cluster name" value="{{cluster.name}}"
                (keydown.enter)="handleNameEnterPress($event)">
@@ -33,4 +33,3 @@
     {{tweet.data}}
   </mat-list-option>
 </mat-selection-list>
-
