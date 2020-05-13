@@ -19,7 +19,8 @@
       </mat-button-toggle>
     </mat-button-toggle-group>
 
-    <button mat-raised-button class="cluster-element" [disabled]="cluster.published" (click)="publish()">
+    <button mat-raised-button class="cluster-element"
+            [disabled]="cluster.status !== 'APPROVED' || cluster.published" (click)="publish()">
       Publish
     </button>
   </section>
