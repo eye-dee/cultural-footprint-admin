@@ -1,7 +1,7 @@
 <mat-card style="align-content: center; align-content: center">
   <p style="margin: 5px; display: inline">cluster-view for {{clusterId}}</p>
-  <form style="display: inline; width: 15%">
-    <mat-form-field class="example-full-width">
+  <form style="display: inline; width: 50%">
+    <mat-form-field class="example-full-width" style="width: 30%">
       <label>
         <input matInput placeholder="Cluster name" value="{{cluster.name}}"
                (keydown.enter)="handleNameEnterPress($event)">
@@ -18,6 +18,11 @@
         Declined
       </mat-button-toggle>
     </mat-button-toggle-group>
+
+    <button mat-raised-button class="cluster-element"
+            [disabled]="cluster.status !== 'APPROVED' || cluster.published" (click)="publish()">
+      Publish
+    </button>
   </section>
 </mat-card>
 <mat-selection-list>
@@ -28,4 +33,3 @@
     {{tweet.data}}
   </mat-list-option>
 </mat-selection-list>
-

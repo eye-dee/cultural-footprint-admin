@@ -74,4 +74,17 @@ export class ClusterService {
       )
     );
   }
+
+  publish(clusterId: string) {
+    return from(this.authService.getAccessToken())
+    .pipe(
+      flatMap((accessToken) =>
+        this.http.post(`/api/clients/telegram/clusters/${clusterId}/publish`, null, {
+          headers: {
+            Authorization: 'Bearer ' + accessToken,
+          }
+        })
+      )
+    );
+  }
 }

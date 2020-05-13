@@ -5,3 +5,7 @@ table {
 .table-cell {
   cursor: pointer;
 }
+
+.approved-cluster {
+  background-color: rgba(80, 255, 129, 0.28);
+}

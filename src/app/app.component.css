@@ -23,3 +23,7 @@
 .toolbar #twitter-logo:hover {
   opacity: 0.8;
 }
+
+.approved {
+  background-color: rgba(80, 255, 129, 0.28);
+}

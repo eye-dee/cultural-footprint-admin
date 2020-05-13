@@ -4,6 +4,7 @@ import {ClusterService} from '../service/cluster.service';
 import {RawRecord} from '../models/raw.record';
 import {RawRecordService} from '../service/raw-record.service';
 import {Cluster, ClusterStatus} from '../models/cluster';
+import {flatMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-cluster-view',
@@ -84,6 +85,15 @@ export class ClusterViewComponent implements OnInit {
     this.clusterService.updateClusterName(this.clusterId, clusterNameToSave)
     .subscribe(() => {
       this.cluster.name = clusterNameToSave;
+    });
+  }
+
+  publish() {
+    this.clusterService.publish(this.clusterId).pipe(
+      flatMap(res => this.clusterService.getClusterById(this.clusterId))
+    ).subscribe(res => {
+      this.cluster = res.cluster;
+      this._clusterStatus = this.cluster.status;
     });
   }
 }
