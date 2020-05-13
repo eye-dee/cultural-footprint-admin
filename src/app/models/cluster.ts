@@ -10,6 +10,7 @@ export interface Cluster {
   name: string;
   id: string;
   status?: ClusterStatus;
+  published?: boolean;
 }
 
 export interface ClusterResult {
