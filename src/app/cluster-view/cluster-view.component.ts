@@ -96,4 +96,10 @@ export class ClusterViewComponent implements OnInit {
       this._clusterStatus = this.cluster.status;
     });
   }
+
+  preview() {
+    this.clusterService.preview(this.clusterId).pipe(
+      flatMap(res => this.clusterService.getClusterById(this.clusterId))
+    ).subscribe();
+  }
 }
